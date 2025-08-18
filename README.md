@@ -18,6 +18,12 @@ Next, install JavaScript dependencies using the [pnpm](https://pnpm.io/installat
 pnpm install
 ```
 
+Finally, create the database:
+
+```bash
+bin/rails db:prepare
+```
+
 ## Start the development server
 
 Run `pnpm dev` in your terminal. This will start the Astro dev server at `http://localhost:4321`, and a Ruby on Rails server in the background. Be sure to open `http://localhost:4321` and _not_ the Rails server.
