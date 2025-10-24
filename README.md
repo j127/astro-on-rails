@@ -2,6 +2,8 @@
 
 This creates a Ruby on Rails project using Astro for views.
 
+TODO: Upgrade to Rails 8 and the latest version of Astro. Use Bun instead of pnpm.
+
 ## Installation
 
 First, follow the [Rails installation guide](https://guides.rubyonrails.org/getting_started.html#creating-a-new-rails-project-installing-rails) to ensure you have compatible versions of Ruby and Rails installed.
