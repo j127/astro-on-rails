@@ -1,8 +1,10 @@
 # README
 
-This creates a Ruby on Rails project using Astro for views.
+This is a personal fork of [bholmesdev/astro-on-rails](https://github.com/bholmesdev/astro-on-rails) just for poking around at the code to see how it works.
 
-TODO: Upgrade to Rails 8 and the latest version of Astro. Use Bun instead of pnpm.
+---
+
+This creates a Ruby on Rails project using Astro for views.
 
 ## Installation
 
@@ -14,10 +16,10 @@ Once Ruby is set up, install packages / gems:
 bundle install
 ```
 
-Next, install JavaScript dependencies using the [pnpm](https://pnpm.io/installation) command:
+Next, install JavaScript dependencies using the `bun` command:
 
 ```bash
-pnpm install
+bun install
 ```
 
 Finally, create the database:
