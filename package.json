@@ -6,7 +6,8 @@
     "build": "astro build",
     "dev:rails": "bin/rails server",
     "dev:astro": "astro dev",
-    "dev": "run-p dev:*"
+    "dev": "run-p dev:*",
+    "format": "prettier --write '**/*.{md,mdx,ts,js,mjs,cjs,jsx,tsx,yaml,yml,json,html,css,scss,vue,astro}'"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -19,6 +20,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }
