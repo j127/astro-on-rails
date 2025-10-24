@@ -15,8 +15,8 @@ Project-specific guidance to make AI coding agents productive here.
 
 ## Key files
 
-- `astro.config.ts`: Active dev config using a custom adapter in `adapter/` and an `aor:dev` middleware that can render views directly during dev.
-- `_astro.config.ts`: Alternate codegen config using `@astrojs/node` that emits `generated/pages/views/**` and wires `[...app].ts` automatically.
+- `astro.config.ts`: Active codegen config using `@astrojs/node` with `output: server` and `srcDir: generated`. Integration `aor:views` scans `app/views/**`, generates wrapper pages in `generated/pages/views/**` that import the source views, writes an `env.d.ts` reference if missing, and copies the catch‑all route into `generated/pages/[...app].ts`.
+- `_astro.config.ts`: Alternate dev config showing a custom adapter in `adapter/` plus an `aor:dev` middleware that can render `app/views/<view>.astro` directly using query params (view, props) during dev.
 - `[...app].ts`: Catch‑all proxy that forwards to Rails, extracts JSON props, sets `ctx.locals.rubyProps`, and rewrites to the target view path.
 - `app/controllers/concerns/astro.rb`: On `MissingExactTemplate`, collects controller instance variables → JSON props and sets `X-Astro-View`.
 - `app/views/**`: Source `.astro` views. Examples: `articles/index.astro`, `articles/show.astro`. `Layout.astro` is the shared shell.
@@ -24,9 +24,11 @@ Project-specific guidance to make AI coding agents productive here.
 
 ## Dev workflow
 
-- Install: `bundle install` → `pnpm install` → `bin/rails db:prepare`.
-- Run: `pnpm dev` (starts Astro and Rails via npm-run-all). Open http://localhost:4321.
-- Rails runs at http://localhost:3000. Astro proxies to this host (hardcoded in `[...app].ts`).
+- Install: `bundle install` → `bun install` → `bin/rails db:prepare`.
+- Run: `bun dev` (starts Astro and Rails; see package.json scripts). Open http://localhost:4321.
+- Rails runs at http://localhost:3000 by default. Astro proxies to this host, but you can override it via `RAILS_URL`.
+ - Optional: React is enabled via `@astrojs/react` in `astro.config.ts`.
+ - Config: You can override the Rails target via `RAILS_URL` (e.g., `RAILS_URL=https://api.example.com`).
 
 ## How rendering works (example)
 
@@ -49,13 +51,13 @@ Project-specific guidance to make AI coding agents productive here.
 
 ## Two configs note
 
-- Active dev config is `astro.config.ts` (custom adapter + middleware). `_astro.config.ts` shows an alternate codegen approach with `@astrojs/node`.
+- Active config is `astro.config.ts` (node adapter + codegen to generated/). `_astro.config.ts` is an alternate setup demonstrating a custom adapter and dev middleware.
 - Prefer the `[...app].ts` + `concerns/astro.rb` flow when adding view routes and props; it matches the current architecture and examples.
 
 ## Commands
 
-- `pnpm dev` — start Astro (4321) + Rails (3000)
-- `pnpm build` — Astro server build
+- `bun dev` — start Astro (4321) + Rails (3000)
+- `bun run build` — Astro server build
 - `bin/rails test` — Rails tests
 
 ## Gotchas

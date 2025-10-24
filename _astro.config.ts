@@ -1,3 +1,5 @@
+// Alternate dev configuration demonstrating a custom adapter and a lightweight
+// middleware that can render app/views/** directly by passing ?view=&props=.
 import { defineConfig } from "astro/config";
 import adapter from "./adapter/index.mjs";
 import type {
@@ -34,9 +36,11 @@ export default defineConfig({
                 props = JSON.parse(stringifiedProps);
               }
               try {
+                // Load the requested view directly from app/views/**
                 const page = await server.ssrLoadModule(
                   `./app/views/${view}.astro`
                 );
+                // Render the view with provided props
                 const response = await container.renderToResponse(
                   page.default,
                   {
@@ -163,10 +167,17 @@ function asyncIterableToBodyProps(iterable: AsyncIterable<any>): RequestInit {
   };
 }
 
-async function writeResponse(source: Response, destination: ServerResponse) {
+// Write a web Response back to Node's ServerResponse.
+async function writeResponse(
+  source: Response,
+  destination: ServerResponse
+): Promise<void> {
   const { status, headers, body } = source;
   destination.writeHead(status, createOutgoingHttpHeaders(headers));
-  if (!body) return destination.end();
+  if (!body) {
+    destination.end();
+    return;
+  }
   try {
     const reader = body.getReader();
     destination.on("close", () => {
@@ -191,6 +202,7 @@ async function writeResponse(source: Response, destination: ServerResponse) {
   } catch {
     destination.end("Internal server error");
   }
+  return;
 }
 
 export const createOutgoingHttpHeaders = (

@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+# Concern that bridges Rails controllers to Astro views.
+# Usage: include Astro in your controller and omit rendering a template
+# with the same name as your action. When a MissingExactTemplate error occurs,
+# this concern will:
+# - Collect instance variables (excluding controller internals),
+# - Set the X-Astro-View header to "<controller>/<action>",
+# - Render the collected props as JSON.
 module Astro
   extend ActiveSupport::Concern
 

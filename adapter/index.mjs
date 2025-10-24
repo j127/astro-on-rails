@@ -1,3 +1,5 @@
+// Minimal custom adapter used by the alternate dev config (_astro.config.ts).
+// Demonstrates how to set a server entrypoint and advertise supported features.
 /** @returns {import('astro').AstroIntegration} */
 export default function () {
   return {
