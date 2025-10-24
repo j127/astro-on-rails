@@ -1,6 +1,6 @@
 # README
 
-This is a personal fork of [bholmesdev/astro-on-rails](https://github.com/bholmesdev/astro-on-rails) just for poking around at the code to see how it works.
+This is a personal fork of [bholmesdev/astro-on-rails](https://github.com/bholmesdev/astro-on-rails) just for poking around at the code to see how it works. This code isn't meant to be used, except as an example to myself. I also added React to Astro to see if that would work, and it does.
 
 ---
 
