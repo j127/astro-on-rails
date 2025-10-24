@@ -1,5 +1,6 @@
 ---
 import Layout from "../Layout.astro";
+import Hello from "../components/Hello";
 
 type Props = {
   articles: Array<{
@@ -13,7 +14,7 @@ const { articles } = Astro.props;
 
 <Layout>
   <h1 class="text-3xl">Hello, Astro on Rails!</h1>
-
+  <Hello name="Astro" client:load />
   <ul>
     {
       articles.map((article) => (
