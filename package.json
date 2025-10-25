@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "astro build",
+    "start": "./script/serve.sh",
     "dev:rails": "bin/rails server",
     "dev:astro": "astro dev",
     "dev": "run-p dev:*",
