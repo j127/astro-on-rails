@@ -17,9 +17,12 @@ export default function Hello({ name, children }: Props) {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div>
+    <div style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "8px", backgroundColor: "#f9f9f9" }}>
       <h1>Hello, {name}!</h1>
+      <p>This is a React component that is rendered on the server and client using the prop "<code>{name}</code>".</p>
       <div>{children}</div>
+
+      <p>Dynamic client-side code:</p>
       <p>Count: {count}</p>
     </div>
   );

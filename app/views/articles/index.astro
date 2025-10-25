@@ -14,7 +14,9 @@ const { articles } = Astro.props;
 
 <Layout>
   <h1 class="text-3xl">Hello, Astro on Rails!</h1>
+  <p>This is a <code>.astro</code> file.</p>
   <Hello name="Astro" client:load />
+  <p>Visit an <a href="/rails">ERB template page</a>.</p>
   <ul>
     {
       articles.map((article) => (
