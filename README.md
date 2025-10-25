@@ -26,6 +26,7 @@ Finally, create the database:
 
 ```bash
 bin/rails db:prepare
+bin/rails db:seed
 ```
 
 ## Start the development server

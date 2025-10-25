@@ -10,14 +10,24 @@ const { title, body } = Astro.props;
 ---
 
 <Layout>
+  <p>
+    <a href="/">Home</a>
+  </p>
   <h1>{title}</h1>
+  <p class="note"><strong>Note:</strong> this is an Astro component.</p>
 
   <Fragment set:html={body} />
 </Layout>
 
 <style>
   h1 {
-    color: red;
+    color: orange;
+  }
+  .note {
+    background-color: #dddcdb;
+    border: 1px solid #b2b2b2;
+    padding: 10px;
+    border-radius: 5px;
   }
 </style>
 
