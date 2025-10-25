@@ -36,29 +36,29 @@ Run `bun dev` in your terminal. This will start the Astro dev server at `http://
 ## How the Astro and Rails integration works
 
 - Request flow:
-	1. Browser hits the Astro dev server (port 4321).
-	2. Astro catch‑all route (`[...app].ts`) proxies the request path to Rails at `http://localhost:3000`.
-	3. If the Rails controller includes the `Astro` concern and does not render a template, the concern rescues `MissingExactTemplate`, sets `X-Astro-View` to `controller/action`, and renders controller instance variables as JSON props.
-	4. `[...app].ts` checks for `X-Astro-View`, parses JSON props, assigns them to `ctx.locals.rubyProps`, and rewrites the request to `/views/controller/action`.
-	5. Astro renders the page wrapper under `generated/pages/views/**` which imports the source view in `app/views/**` and passes `rubyProps` through to the component.
+  1. Browser hits the Astro dev server (port 4321).
+  2. Astro catch‑all route (`[...app].ts`) proxies the request path to Rails at `http://localhost:3000`.
+  3. If the Rails controller includes the `Astro` concern and does not render a template, the concern rescues `MissingExactTemplate`, sets `X-Astro-View` to `controller/action`, and renders controller instance variables as JSON props.
+  4. `[...app].ts` checks for `X-Astro-View`, parses JSON props, assigns them to `ctx.locals.rubyProps`, and rewrites the request to `/views/controller/action`.
+  5. Astro renders the page wrapper under `generated/pages/views/**` which imports the source view in `app/views/**` and passes `rubyProps` through to the component.
 
 - Where pages come from:
-	- `astro.config.ts` includes an integration (`aor:views`) that scans `app/views/**` and codegenerates thin wrapper pages into `generated/pages/views/**`.
-	- It also copies the catch‑all route into `generated/pages/[...app].ts` and ensures `app/views/env.d.ts` references the generated types.
+  - `astro.config.ts` includes an integration (`aor:views`) that scans `app/views/**` and codegenerates thin wrapper pages into `generated/pages/views/**`.
+  - It also copies the catch‑all route into `generated/pages/[...app].ts` and ensures `app/views/env.d.ts` references the generated types.
 
 - Conventions:
-	- Props are just your controller instance variables without the leading `@` (for example, `@title` becomes `title`).
-	- Views map by path: controller and action map to `app/views/controller/action.astro`.
-	- The catch‑all route uses a simple `.replace("index", "")` when rewriting, so index actions resolve to `/views/controller/`.
+  - Props are just your controller instance variables without the leading `@` (for example, `@title` becomes `title`).
+  - Views map by path: controller and action map to `app/views/controller/action.astro`.
+  - The catch‑all route uses a simple `.replace("index", "")` when rewriting, so index actions resolve to `/views/controller/`.
 
 - Add a new page:
-	- Add a Rails route and controller action; set the instance vars you need.
-	- Create `app/views/controller/action.astro` using those props via `Astro.props`.
-	- Visit the route through Astro (port 4321).
+  - Add a Rails route and controller action; set the instance vars you need.
+  - Create `app/views/controller/action.astro` using those props via `Astro.props`.
+  - Visit the route through Astro (port 4321).
 
 - Notes:
-	- React islands are available via `@astrojs/react` already configured in `astro.config.ts`.
-	- For production, consider swapping the hardcoded Rails URL in `[...app].ts` for an environment variable.
+  - React islands are available via `@astrojs/react` already configured in `astro.config.ts`.
+  - For production, consider swapping the hardcoded Rails URL in `[...app].ts` for an environment variable.
 
 ## Example: add a new page
 
@@ -74,12 +74,12 @@ get "/about", to: "pages#about"
 
 ```ruby
 class PagesController < ApplicationController
-	include Astro
+  include Astro
 
-	def about
-		@title = "About This Site"
-		@message = "Built with Rails + Astro views."
-	end
+  def about
+    @title = "About This Site"
+    @message = "Built with Rails + Astro views."
+  end
 end
 ```
 
@@ -90,19 +90,19 @@ end
 import Layout from "../Layout.astro";
 
 type Props = {
-	title: string;
-	message: string;
+  title: string;
+  message: string;
 };
 
 const { title, message } = Astro.props as Props;
 ---
 
 <Layout>
-	<h1>{title}</h1>
-	<p>{message}</p>
-	<p>
-		<a href="/">Back to articles</a>
-	</p>
+  <h1>{title}</h1>
+  <p>{message}</p>
+  <p>
+    <a href="/">Back to articles</a>
+  </p>
 </Layout>
 ```
 
